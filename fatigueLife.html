@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Bearing Fatigue Life Calculator</title>
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #f4f4f4;
+            margin: 0;
+            padding: 0;
+        }
+        .container {
+            width: 80%;
+            margin: auto;
+            overflow: hidden;
+        }
+        header {
+            background: #333;
+            color: #fff;
+            padding: 20px;
+            text-align: center;
+        }
+        nav {
+            padding: 10px;
+            background: #eee;
+            border-bottom: 4px solid #ddd;
+        }
+        nav a {
+            color: #333;
+            text-decoration: none;
+            padding: 0 15px;
+            display: inline-block;
+        }
+        nav a:hover {
+            background: #ddd;
+        }
+        .main-content {
+            padding: 20px;
+            background: #fff;
+            position: relative; /* 设置主内容区域为相对定位 */
+        }
+        .form-group {
+            margin-bottom: 10px;
+        }
+        .form-group label {
+            display: block;
+            margin-bottom: 7px;
+        }
+        .form-group input[type="text"],
+        .form-group select {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ddd;
+        }
+        .button {
+            padding: 10px 20px;
+            background: #0073c6;
+            color: #fff;
+            border: none;
+            cursor: pointer;
+        }
+        .button:hover {
+            background: #0056b3;
+        }
+        .result {
+            position: absolute; /* 设置结果区域为绝对定位 */
+            top: 0; /* 从顶部开始定位 */
+            right: 0; /* 从右侧开始定位 */
+            width: 50%; /* 设置结果区域宽度为输入区域的一半 */
+            padding: 20px; /* 调整结果区域的内边距 */
+            box-sizing: border-box; /* 让padding不会增加元素的实际宽度 */
+        }
+        footer {
+            background: #333;
+            color: #fff;
+            text-align: center;
+            padding: 50px 0;
+            margin-top: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Bearing Fatigue Life Calculator</h1>
+            <h1>本计算工具只适用于CRB和TRB</h1>
+        </header>
+        <nav>
+            <a href="https://www.jp.nsk.com/app02/BearingGuide/html/bearing37416.htm">NSK計算ツール</a>
+            <a href="https://engineering.timken.com/">Timken計算ツール</a>
+            <a href="https://sci-hub.se/">SCI-HUB</a>
+            <a href="#">Home</a>
+            <a href="#">Engineering Tools</a>
+            <a href="#">Support</a>
+            <a href="#">Contact</a>
+        </nav>
+    <div class="main-content">
+        <h2>Calculate Bearing Life</h2>
+        <form>
+             <div class="form-group">
+                <label for="Cr">Cr(KN)</label>
+                <input type="number" id="Cr" name="Cr" value="50">
+            </div>
+
+            <div class="form-group">
+                 <label for="C0r">C0r(KN)</label>
+                <input type="number" id="C0r" name="C0r" value="100">
+            </div>
+
+             <div class="form-group">
+                    <label for="Dpw">Dpw(mm)</label>
+                    <input type="number" id="Dpw" name="Dpw" value="2000">
+            </div>
+
+
+                <div class="form-group">
+                    <label for="CA">Contact Angle(degree,CRB is zero.)</label>
+                    <input type="number" id="CA" name="CA" value="0">
+                </div>
+                
+                <div class="form-group">
+                    <label for="Axia-Load">Axia-Load(KN)</label>
+                    <input type="number" id="Axia-Load" name="Axia-Load" value="0">
+                </div>
+
+                <div class="form-group">
+                    <label for="Radial-Load">Radial-Load(KN)</label>
+                    <input type="number" id="Radial-Load" name="Radial-Load" value="5">
+                </div>
+
+                <div class="form-group">
+                    <label for="RPM">RPM:</label>
+                    <input type="number" id="RPM" name="RPM" value="5">
+                </div>
+
+                <div class="form-group">
+                    <label for="KV40">Kinematic Viscosity@40℃(cst):</label>
+                    <input type="number" id="KV40" name="KV40" value="320">
+                </div>
+
+                <div class="form-group">
+                    <label for="KV100">Kinematic Viscosity@100℃(cst):</label>
+                    <input type="number" id="KV100" name="KV100" value="21.62">
+                </div>
+
+                <div class="form-group">
+                    <label for="LT">Lubricant Temperature(℃):</label>
+                    <input type="number" id="LT" name="LT" value="60">
+                </div>  
+
+               <div class="form-group">
+                    <label for="ISO4406">ISO4406 Code:</label>
+                    <select id="ISO4406" name="ISO4406">
+                        <option value="-/15/12">-/15/12</option>
+                        <option value="-/17/14">-/17/14</option>
+                        <option value="-/19/16">-/19/16</option>
+                    </select>
+                </div>
+
+
+<!--                 <div class="form-group">
+                    <label for="lubricant">lubricant:</label>
+                    <select id="lubricant" name="lubricant">
+                        <option value="ISO VG320">ISO VG320</option>
+                        <option value="ISO VG460">ISO VG460</option>
+                    </select>
+                </div> -->
+
+        <button type="button" onclick="L10()">Calculate</button>
+
+            </form>
+           <!--  结果区域 -->
+        <div class="result">
+            <h2>P     : <span id="P">0</span> </h2>
+            <h2>e     : <span id="e">0</span> </h2>
+            <h2>L10   : <span id="L10">0</span> </h2>
+            <h2>Operating Kinematic Viscosity: <span id="OKV"></span> </h2>
+            <h2>Real_kappa  : <span id="Real_kappa">0</span> </h2>
+            <h2>Used_kappa  : <span id="Used_kappa">0</span> </h2>
+            <h2>ec  : <span id="ec">0</span> </h2>
+        </div>
+<!--             <h2>aiso  : <span id="aiso">0</span> </h2> -->
+
+        </div>
+
+       
+        <script script src="degreesToRadians.js">
+    </script>
+
+ <script src="L10.js">
+    </script>
+
+        <footer>
+            <p>&copy; 注意！计算内容里面含有较多的经验值，仅供参考.</p>
+            <p>&copy; 比如，可靠度系数a1=1，对应失效概率为10%.</p>
+            <p>&copy; 动粘度计算采用的ASTM-Walther公式，不是Vogel公式.</p>
+            <p>&copy; 2024 S.Han All rights reserved.</p>
+        </footer>
+    </div>
+</body>
+</html>
