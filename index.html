@@ -1,185 +1,141 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ja"> <!-- 假设网站是面向日本受众的 -->
 <head>
     <meta charset="UTF-8">
-    <title>Bearing Fatigue Life Calculator</title>
-
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HanS Bearing Online Tool</title>
     <style>
-        body {
-            font-family: Arial, sans-serif;
-            background: #f4f4f4;
+        /* CSS 样式 */
+ #QRCode {
+            position: fixed;
+            bottom: 50px; /* 距离底部的距离 */
+            right: 20px; /* 距离右侧的距离 */
+            z-index: 9999; /* 可选，设置图像的层级 */
+            width: 180px; /* 设置图片宽度 */
+            height: 180px; /* 根据宽度自动调整高度 */
+        }
+
+        body {    
+
+            font-family: 'Helvetica', sans-serif;
             margin: 0;
             padding: 0;
+            background: #f4f4f4;
         }
         .container {
-            width: 80%;
+            width: 95%;
+            max-width: 1200px;
             margin: auto;
-            overflow: hidden;
         }
         header {
-            background: #333;
+            background: #0073c6;
             color: #fff;
-            padding: 20px;
+            padding: 10px 0;
+        }
+        header h1 {
             text-align: center;
         }
         nav {
-            padding: 10px;
-            background: #eee;
-            border-bottom: 1px solid #ddd;
+            display: flex;
+            justify-content: center;
+            background: #333;
+            padding: 10px 0;
         }
         nav a {
-            color: #333;
+            color: #fff;
             text-decoration: none;
             padding: 0 15px;
-            display: inline-block;
         }
         nav a:hover {
-            background: #ddd;
+            background: #555;
         }
-        .main-content {
+        .content {
             padding: 20px;
-            background: #fff;
-        }
-        .form-group {
-            margin-bottom: 10px;
-        }
-        .form-group label {
-            display: block;
-            margin-bottom: 5px;
-        }
-        .form-group input[type="text"],
-        .form-group select {
-            width: 100%;
-            padding: 10px;
-            border: 1px solid #ddd;
-        }
-        .button {
-            padding: 10px 20px;
-            background: #0073c6;
-            color: #fff;
-            border: none;
-            cursor: pointer;
-        }
-        .button:hover {
-            background: #0056b3;
         }
         footer {
             background: #333;
             color: #fff;
             text-align: center;
             padding: 10px 0;
-            margin-top: 20px;
+            position: relative;
         }
     </style>
 </head>
 <body>
+
+
     <div class="container">
         <header>
-            <h1>Bearing Fatigue Life Calculator</h1>
-            <h1>本计算工具只适用于CRB和TRB</h1>
+            <h1>HanSベアリングガイド</h1>
         </header>
         <nav>
-            <a href="#">Home</a>
-            <a href="#">Engineering Tools</a>
-            <a href="#">Support</a>
-            <a href="#">Contact</a>
+            <a href="https://www.jp.nsk.com/app02/BearingGuide/html/bearing37416.htm">NSK計算ツール</a>
+            <a href="https://engineering.timken.com/">Timken計算ツール</a>
+            <a href="https://sci-hub.se/">Sci-hub</a>
+            <a href="https://kimi.moonshot.cn/">Kimi</a>
         </nav>
-        <div class="main-content">
-            <h2>Calculate Bearing Life</h2>
-            <form>
-                <div class="form-group">
-                    <label for="Cr">Cr(KN)</label>
-                    <input type="number" id="Cr" name="Cr" value="50">
-                </div>
+        <nav>
+            <a href="https://www.mesys.jp/?page_id=2358">MESYS Online計算ツール</a>
+            <a href="https://engineering.timken.com/">Timken計算ツール</a>
+            <a href="https://sci-hub.se/">Sci-hub</a>
+            <a href="https://chatgpt.com/">ChatGPT</a>
+        </nav>
 
-                <div class="form-group">
-                    <label for="C0r">C0r(KN)</label>
-                    <input type="number" id="C0r" name="C0r" value="100">
-                </div>
+<!-- 添加一个滚动条 -->
+        <p align="left" style="margin-top: 5px; margin-bottom: 0"><span lang="zh-cn">
+    <font color="#0000FF">
+    <span style="background-color: #FFFFCC">
+    <marquee style="color: #0000FF" scrolldelay="80">欢迎访问S.Han的个人小站，有Bug可以拨打电话-19301459308。
+    本站为个人兴趣爱好所作，可以快速进行轴承的相关计算，上方有一些较为实用的Links，非常好用。</marquee>
+    </span></font></span></p>
 
-                <div class="form-group">
-                    <label for="Dpw">Dpw(mm)</label>
-                    <input type="number" id="Dpw" name="Dpw" value="2000">
-                </div>
+        <div class="content">
+            <h2>
+                <a href="ReadMe.html">ReadMe</a>
+                <a href="https://bearing.fun">Test</a>
+            </h2>
+            <h2>
+                <a href="Cr_C0r.html">BOT1ーベアリングのCrとC0r</a>
+            </h2>
+            <h2>
+                <a href="fatigueLife.html">BOT2ーベアリングfatigue LifeのL10 & L10m</a>
+            </h2>
 
+            <h2>
+                <a href="fatigueLife.html">BOT3ーベアリングの隙間（作業中）</a>
+            </h2> 
 
-                <div class="form-group">
-                    <label for="CA">Contact Angle(degree,CRB is zero.)</label>
-                    <input type="number" id="CA" name="CA" value="0">
-                </div>
-                
-                <div class="form-group">
-                    <label for="Axia-Load">Axia-Load(KN)</label>
-                    <input type="number" id="Axia-Load" name="Axia-Load" value="0">
-                </div>
+           <h2>
+                <a href="fatigueLife.html">BOT4ー潤滑油の粘度とκと油膜厚さHmin（作業中）</a>
+        　　</h2> 
 
-                <div class="form-group">
-                    <label for="Radial-Load">Radial-Load(KN)</label>
-                    <input type="number" id="Radial-Load" name="Radial-Load" value="5">
-                </div>
+           <h2>
+                <a href="fatigueLife.html">BOT5ー軸受に亀裂あれば、対する許容疲労応力（作業中）</a>
+        　　</h2> 
 
-                <div class="form-group">
-                    <label for="RPM">RPM:</label>
-                    <input type="number" id="RPM" name="RPM" value="5">
-                </div>
+           <h2>
+                <a href="fatigueLife.html">BOT6ー軸受の必要なしめしろ（作業中）</a>
+        　　</h2> 
 
-                <div class="form-group">
-                    <label for="KV40">Kinematic Viscosity@40℃(cst):</label>
-                    <input type="number" id="KV40" name="KV40" value="320">
-                </div>
+           <h2>
+                <a href="fatigueLife.html">BOT7ー円筒ころ軸受の端面の接点位置高さ（作業中）</a>
+        　　</h2>
 
-                <div class="form-group">
-                    <label for="KV100">Kinematic Viscosity@100℃(cst):</label>
-                    <input type="number" id="KV100" name="KV100" value="21.62">
-                </div>
+            <h2>
+                <a href="fatigueLife.html">BOT8ー組み合わせTRBの内部力計算（作業中）</a>
+        　　</h2> 
 
-                <div class="form-group">
-                    <label for="LT">Lubricant Temperature(℃):</label>
-                    <input type="number" id="LT" name="LT" value="60">
-                </div>  
-
-               <div class="form-group">
-                    <label for="ISO4406">ISO4406 Code:</label>
-                    <select id="ISO4406" name="ISO4406">
-                        <option value="-/15/12">-/15/12</option>
-                        <option value="-/17/14">-/17/14</option>
-                        <option value="-/19/16">-/19/16</option>
-                    </select>
-                </div>
-
-
-<!--                 <div class="form-group">
-                    <label for="lubricant">lubricant:</label>
-                    <select id="lubricant" name="lubricant">
-                        <option value="ISO VG320">ISO VG320</option>
-                        <option value="ISO VG460">ISO VG460</option>
-                    </select>
-                </div> -->
-
-        <button type="button" onclick="L10()">Calculate</button>
-
-            </form>
-            <h2>P     : <span id="P">0</span> </h2>
-            <h2>e     : <span id="e">0</span> </h2>
-            <h2>L10   : <span id="L10">0</span> </h2>
-            <h2>Operating Kinematic Viscosity: <span id="OKV"></span> </h2>
-            <h2>Real_kappa  : <span id="Real_kappa">0</span> </h2>
-            <h2>Used_kappa  : <span id="Used_kappa">0</span> </h2>
-            <h2>ec  : <span id="ec">0</span> </h2>
-<!--             <h2>aiso  : <span id="aiso">0</span> </h2> -->
+            <p>ここにベアリングに関する詳細情報を記述します。</p>
+            <!-- ページの主要内容をここに追加 -->
+<img id="QRCode" src="QRcode.jpg" alt="QRCode" >
 
         </div>
-
-       
-        <script script src="degreesToRadians.js">
-    </script>
-
- <script src="L10.js">
-    </script>
-
         <footer>
-            <p>&copy; 2024 S.Han All rights reserved.</p>
+
+            <p>&copy; 2024 HanS All rights reserved.</p>
         </footer>
     </div>
+                <!-- 在右下角加个人二维码*/ -->
+
 </body>
 </html>
