@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hertz Contact Stress Calculator for Line contact</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+        }
+        .container {
+            width: 80%;
+            margin: auto;
+            overflow: hidden;
+        }
+        header {
+            background-color: #333;
+            color: #fff;
+            padding: 20px;
+            text-align: center;
+        }
+        .main-content {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 5px;
+            margin-top: 20px;
+        }
+        .form-group {
+            margin-bottom: 20px;
+        }
+        .form-group label {
+            display: block;
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+        .form-group input[type="number"] {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+        .button {
+            padding: 10px 20px;
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        .button:hover {
+            background-color: #0056b3;
+        }
+        #result {
+            margin-top: 20px;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Hertz Contact Stress Calculator</h1>
+        </header>
+        <div class="main-content">
+            <form id="stressForm">
+                <div class="form-group">
+                    <label for="load">Load (N)</label>
+                    <input type="number" id="load" name="load"  value="1000">
+                </div>
+                <div class="form-group">
+                    <label for="Diameter1">Diameter of Inner Raceway (mm)</label>
+                    <input type="number" id="Diameter1" name="Diameter1"value="100">
+                </div>
+                <div class="form-group">
+                    <label for="Diameter2">Diameter of Roller (mm)</label>
+                    <input type="number" id="Diameter2" name="Diameter2" value="10">
+                </div>
+                <div class="form-group">
+                    <label for="contactLength">Contact Length (mm)</label>
+                    <input type="number" id="contactLength" name="contactLength" value="5" >
+                </div>
+                <div class="form-group">
+                    <label for="poissonsRatio">Poisson's Ratio</label>
+                    <input type="number" id="poissonsRatio" name="poissonsRatio" value="0.3">
+                </div>
+                <div class="form-group">
+                    <label for="elasticModulus">Elastic Modulus (Pa)</label>
+                    <input type="number" id="elasticModulus" name="elasticModulus"  value="2.1E11">
+                </div>
+                <button type="button" class="button" onclick="calculateStress()">Calculate Stress</button>
+            </form>
+            <div id="result"></div>
+        </div>
+    </div>
+
+    <script>
+        function calculateStress() {
+            var load = parseFloat(document.getElementById("load").value);
+            var Diameter1 = parseFloat(document.getElementById("Diameter1").value);
+            var Diameter2 = parseFloat(document.getElementById("Diameter2").value);
+            var contactLength = parseFloat(document.getElementById("contactLength").value);
+            var poissonsRatio = parseFloat(document.getElementById("poissonsRatio").value);
+            var elasticModulus = parseFloat(document.getElementById("elasticModulus").value);
+
+            if (isNaN(load) || isNaN(Diameter1) || isNaN(Diameter2) || isNaN(contactLength) || isNaN(poissonsRatio) || isNaN(elasticModulus)) {
+                document.getElementById("result").innerHTML = "Please enter valid numbers for all fields.";
+                return;
+            }
+
+            // 计算接触半宽度
+            var b1 = 2*load/Math.PI/contactLength*1000;
+            var b2 = 2*(1-Math.pow(poissonsRatio,2))/elasticModulus/(1000/Diameter1+1000/Diameter2);
+            var b = Math.sqrt(b1*b2)*1000;
+
+            // 计算接触应力
+            var stress = 2 * load / Math.PI / contactLength / b;
+            document.getElementById("result").innerHTML = "Hertz Contact Stress: Pmax=" + stress.toFixed(0) + "MPa <br> Contact half-width :b= " + b.toFixed(3) + " mm";
+        }
+    </script>
+</body>
+</html>
