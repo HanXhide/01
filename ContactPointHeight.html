@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CRB Roller End Face and Rib Contact Point Height</title>
+<style>
+
+body {
+  
+    font-family: 'Roboto', sans-serif;
+    background-color: #121212;
+    color: #ffffff;
+    margin: 0;
+    padding: 0;
+}
+
+.container {
+    max-width: 800px;
+    margin: 50px auto;
+    padding: 30px;
+    background-color: #212121;
+    border-radius: 10px;
+    box-shadow: 0 0 20px rgba(255, 255, 255, 0.1);
+}
+
+h1 {
+    text-align: center;
+    color: #03a9f4;
+    margin-bottom: 30px;
+}
+
+form {
+    margin-bottom: 30px;
+}
+
+label {
+    display: block;
+    font-weight: bold;
+    color: #ffffff;
+    margin-bottom: 10px;
+}
+input[type="number"]::-webkit-inner-spin-button, 
+input[type="number"]::-webkit-outer-spin-button { 
+    -webkit-appearance: none; /* 隐藏默认样式 */
+    margin: 0; /* 取消默认外边距 */
+}
+input[type="number"] {
+    width: calc(10% - 20px);
+    padding: 15px;
+    background-color: #424242;
+    border: 1px solid #03a9f4;
+    border-radius: 5px;
+    margin-bottom: 20px;
+    color: #ffffff;
+}
+
+.unit {
+    white-space: nowrap;
+}
+
+button {
+    font-size: 30px;
+    width: 100%;
+    padding: 15px;
+    background-color: #03a9f4;
+    color: #ffffff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    margin-bottom: 20px;
+}
+
+button:hover {
+    background-color: #039be5;
+}
+
+h2 {
+    text-align: center;
+    color: #ffffff;
+    margin-top: 30px;
+}
+
+span {
+    font-weight: bold;
+    color: #03a9f4;
+}
+
+@media print {
+    body {
+        margin: 0;
+        padding: 0;
+        background-color: transparent;
+    }
+
+    .container {
+        max-width: none;
+        margin: 0;
+        padding: 0;
+        background-color: transparent;
+        box-shadow: none;
+    }
+
+    button {
+        display: none;
+    }
+}
+</style>
+</head>
+<body>
+
+<div class="container">
+    <h1>CRB roller end face and Rib contact point height calculation.</h1>
+    <form id="integralForm">
+        <label for="Dwe">Dew(Diameter of roller)<span class="unit">unit:millimeter</span></label>
+        <input type="number" id="Dwe" name="Dwe" value="50">
+
+        <label for="R">R(Radius of roller end face:)<span class="unit">unit:millimeter</span></label>
+        <input type="number" id="R" name="R" value="3000">
+        <span>±</span>
+        <input type="number" id="r" name="r" value="100">
+
+        <label for="Fai">θ(degree of rib:)<span class="unit">unit:minute</span></label>
+        <input type="number" id="Fai" name="Fai" value="20">
+        <span>±</span>
+        <input type="number" id="fai" name="fai" value="3">
+
+        <button type="button" onclick="ContactHeight()">Calculate</button>
+        <button type="button" onclick="generatePDF()">Generate PDF</button>
+    </form>
+
+        <h2>Hmin: <span id="Hmin">0</span></h2>
+        <h2>Hmax: <span id="Hmax">0</span></h2>
+</div>
+
+    <script>
+        function generatePDF() {
+         window.print();
+}
+    </script>
+
+    <script>
+        function degreesToRadians(degrees) {
+        return degrees * Math.PI / 180;
+}
+  </script>
+
+    <script>
+        function ContactHeight(){
+            var Dwe = parseFloat(document.getElementById('Dwe').value);
+            var R = parseFloat(document.getElementById('R').value);
+            var r = parseFloat(document.getElementById('r').value);
+            var Fai = parseFloat(document.getElementById('Fai').value)/60;
+            var fai = parseFloat(document.getElementById('fai').value)/60;
+
+            //var delta_Kth = parseFloat(document.getElementById('delta_Kth').value);
+           // var pi=3.1415926;
+            var Hmin=Dwe/2-(R+r)*Math.sin(degreesToRadians(Fai+fai));
+            var Hmax=Dwe/2-(R-r)*Math.sin(degreesToRadians(Fai-fai));
+            //var area=Math.pow(0.25*pi*H*L*Math.pow(10,-12),0.5);
+            //var deltaSigema=delta_Kth/0.65/Math.pow(pi*area,0.5);
+
+/*通过 JavaScript 获取到这个元素，并更新它的文本内容*/
+            document.getElementById("Hmin").innerText = Hmin.toFixed(2)+" mm";
+            document.getElementById("Hmax").innerText = Hmax.toFixed(2)+" mm";
+        }
+    </script>
+
+
+</body>
+</html>

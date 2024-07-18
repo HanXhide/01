@@ -1,0 +1,31 @@
+<!-- index.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Display Database Data</title>
+</head>
+<body>
+    <h1>Database Data:</h1>
+    <div id="data"></div>
+
+    <script>
+        // 使用 AJAX 请求向服务器端获取数据
+        var xhr = new XMLHttpRequest();
+        xhr.onreadystatechange = function() {
+            if (xhr.readyState === XMLHttpRequest.DONE) {
+                if (xhr.status === 200) {
+                    // 成功获取数据，更新页面内容
+                    document.getElementById('Cr').innerHTML = xhr.responseText;
+                } else {
+                    // 请求失败，显示错误信息
+                    console.error('Error fetching data:', xhr.status, xhr.statusText);
+                }
+            }
+        };
+        xhr.open('GET', 'getData.php', true);
+        xhr.send();
+    </script>
+</body>
+</html>

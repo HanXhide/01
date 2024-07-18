@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Bearing Fatigue Life Calculator</title>
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #f4f4f4;
+            margin: 0;
+            padding: 0;
+        }
+        .container {
+            width: 80%;
+            margin: auto;
+            overflow: hidden;
+        }
+        header {
+            background: #333;
+            color: #fff;
+            padding: 20px;
+            text-align: center;
+        }
+        nav {
+            padding: 10px;
+            background: #eee;
+            border-bottom: 4px solid #ddd;
+        }
+        nav a {
+            color: #333;
+            text-decoration: none;
+            padding: 0 15px;
+            display: inline-block;
+        }
+        nav a:hover {
+            background: #ddd;
+        }
+        .main-content {
+            padding: 20px;
+            background: #fff;
+            position: relative; /* 设置主内容区域为相对定位 */
+        }
+        .form-group {
+            margin-bottom: 10px;
+        }
+        .form-group label {
+            display: block;
+            margin-bottom: 7px;
+        }
+        .form-group input[type="text"],
+        .form-group select {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ddd;
+        }
+button {
+    font-size: 30px;
+    width: 100%;
+    padding: 15px;
+    background-color: #03a9f4;
+    color: #ffffff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    margin-bottom: 20px;
+}
+
+button:hover {
+    background-color: #039be5;
+}
+
+        .result {
+            position: absolute; /* 设置结果区域为绝对定位 */
+            top: 0; /* 从顶部开始定位 */
+            right: 0; /* 从右侧开始定位 */
+            width: 50%; /* 设置结果区域宽度为输入区域的一半 */
+            padding: 20px; /* 调整结果区域的内边距 */
+            box-sizing: border-box; /* 让padding不会增加元素的实际宽度 */
+        }
+        footer {
+            background: #333;
+            color: #fff;
+            text-align: center;
+            padding: 50px 0;
+            margin-top: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Bearing Necessary Interference Calculator</h1>
+            </header>
+        
+    <div class="main-content">
+        
+        <form>
+             <div class="form-group">
+                <label for="Fr">Radial-Load Fr(KN)</label>
+                <input type="number" id="Fr" name="Fr" value="190.37056">
+            </div>
+
+            <div class="form-group">
+                 <label for="d">Shaft Outer Diameter(mm)</label>
+                <input type="number" id="d" name="d" value="400">
+            </div>
+
+             <div class="form-group">
+                    <label for="d0">Shaft Inner Diameter(mm)</label>
+                    <input type="number" id="d0" name="d0" value="320">
+            </div>
+
+
+                <div class="form-group">
+                    <label for="B">Bearing Inner Ring Width(mm))</label>
+                    <input type="number" id="B" name="B" value="90">
+                </div>
+                
+            <div class="form-group">
+                    <label for="Di">Bearing Inner Ring Raceway Diameter(mm))</label>
+                    <input type="number" id="Di" name="Di" value="450">
+
+                </div>
+            <div class="form-group">
+                    <label for="MS">Possion number of Shaft</label>
+                    <input type="number" id="MS" name="MS" value="3.33">
+                </div>
+            <div class="form-group">
+                    <label for="ES">Young Module of Shaft(MPa)</label>
+                    <input type="number" id="ES" name="ES" value="208000">
+                </div>
+            <div class="form-group">
+                    <label for="MI">Possion number of Bearing</label>
+                    <input type="number" id="MI" name="MI" value="3.33">
+                </div>
+            <div class="form-group">
+                    <label for="EI">Young Module of Bearing(MPa)</label>
+                    <input type="number" id="EI" name="EI" value="208000">
+                </div>
+
+               <div class="form-group">
+                    <label for="ISO4406">ISO4406 Code:</label>
+                    <select id="ISO4406" name="ISO4406">
+                        <option value="-/15/12">-/15/12</option>
+                        <option value="-/17/14">-/17/14</option>
+                        <option value="-/19/16">-/19/16</option>
+                    </select>
+                </div>
+
+
+        <button type="button" onclick="NecessaryInterference()">Calculate</button>
+
+            </form>
+            
+           <!--  结果区域 -->
+        <div class="result">
+            <h2>Palmgren Result     : <span id="PR">0</span> </h2>
+            <h2>Soda Result         : <span id="SR">0</span> </h2>
+            <h2>Necessary Interference For Solid Shaft  : <span id="NI_Solid">0</span> </h2>
+            <h2>Necessary Interference For Hollow Shaft : <span id="NI_Hollow">0</span> </h2>
+
+        </div>
+<!--             <h2>aiso  : <span id="aiso">0</span> </h2> -->
+
+        </div>
+
+       
+        <script script src="degreesToRadians.js">
+    </script>
+
+ <script src="NecessaryInterference.js">
+    </script>
+
+        <footer>
+            <p>&copy; 注意！计算内容里面含有较多的经验值，仅供参考.</p>
+            <p>&copy; Palmgren公式和Soda公式取最大值.</p>
+            <p>&copy; 2024 S.Han All rights reserved.</p>
+        </footer>
+    </div>
+</body>
+</html>

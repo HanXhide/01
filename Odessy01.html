@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Odessy01</title>
+</head>
+
+<style>
+    /* 设置标签的宽度 */
+    label {
+        width: 200px; /* 设置为适当的宽度 */
+        display: inline-block; /* 将标签设置为行内块元素，使其在一行上显示 */
+    }
+
+    /* 设置输入框的宽度 */
+    input[type="number"] {
+        width: 50px; /* 设置为适当的宽度 */
+    }
+</style>
+
+<body>
+    <h1>CRB &TRB Dynamic & Static Rating Load Capacity Calculation.</h1>
+    <form id="integralForm">
+
+        <label for="bm">Bm coefficient   :</label>
+        <input type="number" id="bm" name="bm" value="1.1">
+        Default value 1.1(ISO 281-2007),generally don't adjust it. <br><br>
+
+        <label for="i">Roller row number :</label>
+        <input type="number" id="i" name="i" value="1">row(s)<br><br>
+
+        <label for="Dwe">Roller Diameter Dwe :</label>
+        <input type="number" id="Dwe" name="Dwe" value="1">mm<br><br>
+        
+        <label for="CA">Bearing Contact Angle:</label>
+        <input type="number" id="CA" name="CA" value="2">degree<br><br>
+        
+
+        <label for="Z">Number of Rollers Z   :</label>
+        <input type="number" id="Z" name="Z" value="3">pcs<br><br>
+        
+        <label for="Lwe">Length of Roller Lwe:</label>
+        <input type="number" id="Lwe" name="Lwe" value="4">mm<br><br>
+        
+        <label for="Dpw">Pitch Diameter Dpw  :</label>
+        <input type="number" id="Dpw" name="Dpw" value="5">mm<br><br>
+        
+        <button type="button" onclick="C0r();Cr()">Calculate</button>
+   </form>
+
+    <h2>Gamma: <span id="gamma">0</span></h2>
+    <h2>Cr   : <span id="Cr">0</span></h2>
+    <h2>C0r  : <span id="C0r">0</span></h2>
+
+    <script src="Cr.js">
+    </script>
+
+    <script src="C0r.js">
+    </script>
+
+    <script script src="degreesToRadians.js">
+    </script>
+
+</body>
+</html>
