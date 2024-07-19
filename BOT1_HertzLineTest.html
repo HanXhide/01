@@ -4,30 +4,29 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Hertz Contact Stress Calculator for Line contact</title>
-        <script src="https://d3js.org/d3.v7.min.js"></script>
     <style>
         body {
             font-family: Arial, sans-serif;
-            background-color: #f4f4f4;
+            background: linear-gradient(to right, #1e3c72, #2a5298);
+            color: #fff;
             margin: 0;
             padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
         }
         .container {
-            width: 80%;
-            margin: auto;
+            display: flex;
+            width: 90%;
+            background-color: rgba(0, 0, 0, 0.7);
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
             overflow: hidden;
         }
-        header {
-            background-color: #333;
-            color: #fff;
-            padding: 20px;
-            text-align: center;
-        }
         .main-content {
-            background-color: #fff;
+            flex: 1;
             padding: 20px;
-            border-radius: 5px;
-            margin-top: 20px;
         }
         .form-group {
             margin-bottom: 20px;
@@ -42,6 +41,8 @@
             padding: 10px;
             border: 1px solid #ccc;
             border-radius: 5px;
+            background: rgba(255, 255, 255, 0.8);
+            color: #000;
         }
         .button {
             padding: 10px 20px;
@@ -50,58 +51,51 @@
             border: none;
             border-radius: 5px;
             cursor: pointer;
+            transition: background-color 0.3s ease;
         }
         .button:hover {
             background-color: #0056b3;
         }
-        #result {
+        .result {
             margin-top: 20px;
             font-weight: bold;
+            background: rgba(255, 255, 255, 0.1);
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
         }
-                .axis path,
-        .axis line {
-            fill: none;
-            shape-rendering: crispEdges;
+        .result h2 {
+            margin: 10px 0;
         }
-        .axis text {
-            font-size: 12px;
+        .image-container {
+            flex: 1;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: rgba(255, 255, 255, 0.1);
         }
-        .line {
-            fill: none;
-            stroke: steelblue;
-            stroke-width: 2px;
-        }
-        .tooltip {
-            position: absolute;
-            background-color: #fff;
-            border: 1px solid #ccc;
-            padding: 5px;
-            font-size: 12px;
-            pointer-events: none;
-        }
-        .vertex-label {
-            font-size: 12px;
-            text-anchor: start;
-        }
-        .vertex-circle {
-            fill: red;
+        img {
+            max-width: 80%;
+            height: auto;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
         }
     </style>
 </head>
 <body>
     <div class="container">
-        <header>
-            <h1>Hertz Contact Stress Calculator</h1>
-        </header>
         <div class="main-content">
+            <header style="text-align: center; margin-bottom: 20px;">
+                <h1>Hertz Contact Stress Calculator</h1>
+            </header>
             <form id="stressForm">
                 <div class="form-group">
                     <label for="load">Load (N)</label>
-                    <input type="number" id="load" name="load"  value="1000">
+                    <input type="number" id="load" name="load" value="1000">
                 </div>
                 <div class="form-group">
                     <label for="Diameter1">Diameter of Inner Raceway (mm)</label>
-                    <input type="number" id="Diameter1" name="Diameter1"value="100">
+                    <input type="number" id="Diameter1" name="Diameter1" value="100">
                 </div>
                 <div class="form-group">
                     <label for="Diameter2">Diameter of Roller (mm)</label>
@@ -109,7 +103,7 @@
                 </div>
                 <div class="form-group">
                     <label for="contactLength">Contact Length (mm)</label>
-                    <input type="number" id="contactLength" name="contactLength" value="5" >
+                    <input type="number" id="contactLength" name="contactLength" value="5">
                 </div>
                 <div class="form-group">
                     <label for="poissonsRatio">Poisson's Ratio</label>
@@ -117,14 +111,23 @@
                 </div>
                 <div class="form-group">
                     <label for="elasticModulus">Elastic Modulus (Pa)</label>
-                    <input type="number" id="elasticModulus" name="elasticModulus"  value="2.1E11">
+                    <input type="number" id="elasticModulus" name="elasticModulus" value="2.1E11">
                 </div>
                 <button type="button" class="button" onclick="calculateStress()">Calculate Stress</button>
             </form>
-            <div id="result"></div>
+            <div class="result">
+                <h2>Hertz Contact Stress: <span id="Hertzstress">0</span> MPa</h2>
+                <h2>Contact half-width: <span id="b">0</span> mm</h2>
+                <h2>Max shear stress: <span id="MSS">0</span> MPa</h2>
+                <h2>Depth of Max shear stress: <span id="DMSS">0</span> mm</h2>
+                <h2>Max VM stress: <span id="MVS">0</span> MPa</h2>
+                <h2>Depth of Max VM stress: <span id="DMVS">0</span> mm</h2>
+            </div>
+        </div>
+        <div class="image-container">
+            <img src="img/CylinderCylinderParallel.png" alt="Cylinder Cylinder Parallel">
         </div>
     </div>
-
     <script>
         function calculateStress() {
             var load = parseFloat(document.getElementById("load").value);
@@ -140,162 +143,25 @@
             }
 
             // 计算接触半宽度
-            var b1 = 2*load/Math.PI/contactLength*1000;
-            var b2 = 2*(1-Math.pow(poissonsRatio,2))/elasticModulus/(1000/Diameter1+1000/Diameter2);
-            var b = Math.sqrt(b1*b2)*1000;
+            var b1 = 2 * load / Math.PI / contactLength * 1000;
+            var b2 = 2 * (1 - Math.pow(poissonsRatio, 2)) / elasticModulus / (1000 / Diameter1 + 1000 / Diameter2);
+            var b = Math.sqrt(b1 * b2) * 1000;
 
             // 计算接触应力
-            var stress = 2 * load / Math.PI / contactLength / b;
-            document.getElementById("result").innerHTML = "Hertz Contact Stress: Pmax=" + stress.toFixed(0) + "MPa <br> Contact half-width :b= " + b.toFixed(3) + " mm";
-        }
-    </script>
+            var Hertzstress = 2 * load / Math.PI / contactLength / b;
+            // 计算Von-mises应力
+            var MVS = Hertzstress / (1.164 + 2.975 * poissonsRatio - 2.906 * Math.pow(poissonsRatio, 2));
+            var DMVS = b * (0.223 + 2.321 * poissonsRatio - 2.397 * Math.pow(poissonsRatio, 2));
+            // 计算剪切应力
+            var MSS = Hertzstress * 0.3003;
+            var DMSS = b * 0.7861;
 
-     <script>
-        // 设置 SVG 画布的宽高
-        const width = 800;
-        const height = 600;
-
-        // 设置横纵坐标的边距
-        const margin = { top: 20, right: 30, bottom: 30, left: 40 };
-
-        // 计算有效绘图区域的宽高
-        const plotWidth = width - margin.left - margin.right;
-        const plotHeight = height - margin.top - margin.bottom;
-
-        // 选择 SVG 元素
-        const svg = d3.select("svg")
-            .attr("width", width)
-            .attr("height", height);
-
-        // 创建图表组
-        const chart = svg.append("g")
-            .attr("transform", `translate(${margin.left},${margin.top})`);
-
-        // 创建 x 轴和 y 轴的比例尺
-        const xScale = d3.scaleLinear()
-            .range([0, plotWidth]);
-
-        const yScale = d3.scaleLinear()
-            .range([plotHeight, 0]);
-
-        // 创建 x 轴和 y 轴
-        const xAxis = d3.axisBottom(xScale).ticks(20);
-        const yAxis = d3.axisLeft(yScale);
-
-        // 添加 x 轴
-        chart.append("g")
-            .attr("class", "x axis")
-            .attr("transform", `translate(0,${plotHeight})`)
-            .call(xAxis);
-
-        // 添加 y 轴
-        chart.append("g")
-            .attr("class", "y axis")
-            .call(yAxis);
-
-        // 创建线条生成器
-        const line = d3.line()
-            .x(d => xScale(d[0]))
-            .y(d => yScale(d[1]));
-
-        // 创建 tooltip
-        const tooltip = d3.select(".tooltip");
-
-        // 初始绘制
-        updateParabola();
-
-        // 更新抛物线函数
-        function updateParabola() {
-            const a = parseFloat(document.getElementById('load').value);
-            const b = parseFloat(document.getElementById('contactLength').value);
-            const c = parseFloat(document.getElementById('Diameter1').value);
-
-            // 计算顶点和交点
-            const vertexX = -b / (2 * a);
-            const vertexY = a * vertexX * vertexX + b * vertexX + c;
-            const xRange = Math.max(Math.abs(vertexX - 10), Math.abs(vertexX + 10));
-            const xDomain = [-xRange, xRange];
-
-            // 定义一个抛物线函数 y = a*x^2 + b*x + c
-            const x = d3.range(xDomain[0], xDomain[1], 0.1);
-            const y = x.map(d => a * d * d + b * d + c);
-
-            // 更新 x 轴比例尺的范围
-            xScale.domain(xDomain);
-
-            // 更新 y 轴比例尺的范围
-            yScale.domain([d3.min(y), d3.max(y)]);
-
-            // 更新 x 轴
-            svg.select(".x.axis")
-                .transition()
-                .duration(1000)
-                .call(xAxis);
-
-            // 更新 y 轴
-            svg.select(".y.axis")
-                .transition()
-                .duration(1000)
-                .call(yAxis);
-
-            // 绘制或更新抛物线
-            const path = chart.selectAll(".line")
-                .data([x.map((d, i) => [d, y[i]])]);
-
-            path.enter().append("path")
-                .attr("class", "line")
-                .merge(path)
-                .transition()
-                .duration(1000)
-                .attr("d", line);
-
-            path.exit().remove();
-
-            // 添加顶点标注
-            const vertex = chart.selectAll(".vertex")
-                .data([[vertexX, vertexY]]);
-
-            vertex.enter().append("circle")
-                .attr("class", "vertex vertex-circle")
-                .attr("r", 5)
-                .merge(vertex)
-                .transition()
-                .duration(1000)
-                .attr("cx", d => xScale(d[0]))
-                .attr("cy", d => yScale(d[1]));
-
-            vertex.exit().remove();
-
-            const vertexLabel = chart.selectAll(".vertex-label")
-                .data([[vertexX, vertexY]]);
-
-            vertexLabel.enter().append("text")
-                .attr("class", "vertex vertex-label")
-                .merge(vertexLabel)
-                .transition()
-                .duration(1000)
-                .attr("x", d => xScale(d[0]) + 10)
-                .attr("y", d => yScale(d[1]) - 10)
-                .text(d => `(${d[0].toFixed(2)}, ${d[1].toFixed(2)})`);
-
-            vertexLabel.exit().remove();
-
-            // 添加鼠标事件
-            chart.selectAll(".line")
-                .on("mouseover", function(event) {
-                    tooltip.style("opacity", 1);
-                })
-                .on("mousemove", function(event) {
-                    const [mouseX, mouseY] = d3.pointer(event);
-                    const xValue = xScale.invert(mouseX);
-                    const yValue = a * xValue * xValue + b * xValue + c;
-                    tooltip.html(`x: ${xValue.toFixed(2)}<br>y: ${yValue.toFixed(2)}`)
-                        .style("left", (event.pageX + 10) + "px")
-                        .style("top", (event.pageY - 20) + "px");
-                })
-                .on("mouseout", function() {
-                    tooltip.style("opacity", 0);
-                });
+            document.getElementById('b').innerText = b.toFixed(4);
+            document.getElementById('Hertzstress').innerText = Hertzstress.toFixed(1);
+            document.getElementById('MVS').innerText = MVS.toFixed(1);
+            document.getElementById('DMVS').innerText = DMVS.toFixed(4);
+            document.getElementById('MSS').innerText = MSS.toFixed(1);
+            document.getElementById('DMSS').innerText = DMSS.toFixed(4);
         }
     </script>
 </body>

@@ -7,26 +7,26 @@
     <style>
         body {
             font-family: Arial, sans-serif;
-            background-color: #f4f4f4;
+            background: linear-gradient(to right, #1e3c72, #2a5298);
+            color: #fff;
             margin: 0;
             padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
         }
         .container {
-            width: 80%;
-            margin: auto;
+            display: flex;
+            width: 90%;
+            background-color: rgba(0, 0, 0, 0.7);
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
             overflow: hidden;
         }
-        header {
-            background-color: #333;
-            color: #fff;
-            padding: 20px;
-            text-align: center;
-        }
         .main-content {
-            background-color: #fff;
+            flex: 1;
             padding: 20px;
-            border-radius: 5px;
-            margin-top: 20px;
         }
         .form-group {
             margin-bottom: 20px;
@@ -41,6 +41,8 @@
             padding: 10px;
             border: 1px solid #ccc;
             border-radius: 5px;
+            background: rgba(255, 255, 255, 0.8);
+            color: #000;
         }
         .button {
             padding: 10px 20px;
@@ -49,30 +51,51 @@
             border: none;
             border-radius: 5px;
             cursor: pointer;
+            transition: background-color 0.3s ease;
         }
         .button:hover {
             background-color: #0056b3;
         }
-        #result {
+        .result {
             margin-top: 20px;
             font-weight: bold;
+            background: rgba(255, 255, 255, 0.1);
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+        .result h2 {
+            margin: 10px 0;
+        }
+        .image-container {
+            flex: 1;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: rgba(255, 255, 255, 0.1);
+        }
+        img {
+            max-width: 80%;
+            height: auto;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
         }
     </style>
 </head>
 <body>
     <div class="container">
-        <header>
-            <h1>Hertz Contact Stress Calculator</h1>
-        </header>
         <div class="main-content">
+            <header style="text-align: center; margin-bottom: 20px;">
+                <h1>Hertz Contact Stress Calculator</h1>
+            </header>
             <form id="stressForm">
                 <div class="form-group">
                     <label for="load">Load (N)</label>
-                    <input type="number" id="load" name="load"  value="1000">
+                    <input type="number" id="load" name="load" value="1000">
                 </div>
                 <div class="form-group">
                     <label for="Diameter1">Diameter of Inner Raceway (mm)</label>
-                    <input type="number" id="Diameter1" name="Diameter1"value="100">
+                    <input type="number" id="Diameter1" name="Diameter1" value="100">
                 </div>
                 <div class="form-group">
                     <label for="Diameter2">Diameter of Roller (mm)</label>
@@ -80,7 +103,7 @@
                 </div>
                 <div class="form-group">
                     <label for="contactLength">Contact Length (mm)</label>
-                    <input type="number" id="contactLength" name="contactLength" value="5" >
+                    <input type="number" id="contactLength" name="contactLength" value="5">
                 </div>
                 <div class="form-group">
                     <label for="poissonsRatio">Poisson's Ratio</label>
@@ -88,26 +111,24 @@
                 </div>
                 <div class="form-group">
                     <label for="elasticModulus">Elastic Modulus (Pa)</label>
-                    <input type="number" id="elasticModulus" name="elasticModulus"  value="2.1E11">
+                    <input type="number" id="elasticModulus" name="elasticModulus" value="2.1E11">
                 </div>
-
-            <button type="button" class="button" onclick="calculateStress()">Calculate Stress</button>
+                <button type="button" class="button" onclick="calculateStress()">Calculate Stress</button>
             </form>
-
-        <div class="result">
-            <br><br><br><br><br><br>
-            <h2>Hertz Contact Stress     : <span id="Hertzstress">0</span>  MPa</h2>
-            <h2>Contact half-width       : <span id="b">0</span>  mm</h2>
-
-            <h2>Max shear stress         : <span id="MSS">0</span>  MPa </h2>
-            <h2>Depth of Max shear stress: <span id="DMSS">0</span> mm</h2>
-            <h2>Max VM stress         : <span id="MVS">0</span>  MPa </h2>
-            <h2>Depth of Max VM stress: <span id="DMVS">0</span> mm</h2>
+            <div class="result">
+                <h2>Hertz Contact Stress: <span id="Hertzstress">0</span> MPa</h2>
+                <h2>Contact half-width: <span id="b">0</span> mm</h2>
+                <h2>Max shear stress: <span id="MSS">0</span> MPa</h2>
+                <h2>Depth of Max shear stress: <span id="DMSS">0</span> mm</h2>
+                <h2>Max VM stress: <span id="MVS">0</span> MPa</h2>
+                <h2>Depth of Max VM stress: <span id="DMVS">0</span> mm</h2>
+            </div>
+        </div>
+        <div class="image-container">
+            <img src="img/CylinderCylinderParallel.png" alt="Cylinder Cylinder Parallel">
         </div>
     </div>
-
     <script>
-
         function calculateStress() {
             var load = parseFloat(document.getElementById("load").value);
             var Diameter1 = parseFloat(document.getElementById("Diameter1").value);
@@ -122,18 +143,18 @@
             }
 
             // 计算接触半宽度
-            var b1 = 2*load/Math.PI/contactLength*1000;
-            var b2 = 2*(1-Math.pow(poissonsRatio,2))/elasticModulus/(1000/Diameter1+1000/Diameter2);
-            var b = Math.sqrt(b1*b2)*1000;
+            var b1 = 2 * load / Math.PI / contactLength * 1000;
+            var b2 = 2 * (1 - Math.pow(poissonsRatio, 2)) / elasticModulus / (1000 / Diameter1 + 1000 / Diameter2);
+            var b = Math.sqrt(b1 * b2) * 1000;
 
             // 计算接触应力
             var Hertzstress = 2 * load / Math.PI / contactLength / b;
-            //计算Von-mises应力
-            var MVS=Hertzstress/(1.164+2.975*poissonsRatio-2.906 * Math.pow(poissonsRatio, 2));
-            var DMVS=b*(0.223+2.321*poissonsRatio-2.397 * Math.pow(poissonsRatio, 2));
-            //计算剪切应力
-            var MSS=Hertzstress*0.3003;
-            var DMSS=b*0.7861;
+            // 计算Von-mises应力
+            var MVS = Hertzstress / (1.164 + 2.975 * poissonsRatio - 2.906 * Math.pow(poissonsRatio, 2));
+            var DMVS = b * (0.223 + 2.321 * poissonsRatio - 2.397 * Math.pow(poissonsRatio, 2));
+            // 计算剪切应力
+            var MSS = Hertzstress * 0.3003;
+            var DMSS = b * 0.7861;
 
             document.getElementById('b').innerText = b.toFixed(4);
             document.getElementById('Hertzstress').innerText = Hertzstress.toFixed(1);
@@ -141,9 +162,7 @@
             document.getElementById('DMVS').innerText = DMVS.toFixed(4);
             document.getElementById('MSS').innerText = MSS.toFixed(1);
             document.getElementById('DMSS').innerText = DMSS.toFixed(4);
-
         }
     </script>
-
 </body>
 </html>
