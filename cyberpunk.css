@@ -1,0 +1,162 @@
+body {
+    font-family: 'SimSun', serif;
+    background: url('img/cyberpunk.jpg') no-repeat center center fixed;
+    background-size: cover;
+    color: #333;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+/* 固定按钮的样式 */
+.theme-buttons {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    background-color: rgba(255, 255, 255, 0.8); /* 半透明白色背景 */
+    padding: 10px;
+    display: flex;
+    justify-content: center;
+    z-index: 1000; /* 确保按钮在最上层 */
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2); /* 微弱阴影 */
+}
+
+.theme-buttons button {
+    background-color: #c0392b; /* 红色 */
+    color: #fff; /* 白色文字 */
+    border: none;
+    border-radius: 5px;
+    padding: 10px 20px;
+    margin: 0 10px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+    font-size: 16px;
+}
+
+.theme-buttons button:hover {
+    background-color: #e74c3c; /* 更亮的红色 */
+    transform: scale(1.05);
+}
+
+.container {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    max-width: 1200px;
+    background: rgba(255, 255, 255, 0.7); /* 半透明白色背景 */
+    border-radius: 15px;
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.2); /* 微弱阴影 */
+    padding: 20px;
+    margin-top: 60px; /* 确保内容不被按钮覆盖 */
+}
+
+header {
+    background: #f5f5f5; /* 浅灰色背景 */
+    padding: 15px;
+    text-align: center;
+    border-bottom: 2px solid #e0e0e0; /* 浅灰色底边 */
+    border-radius: 10px;
+    margin-bottom: 20px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* 微弱阴影 */
+}
+
+header h1 {
+    margin: 0;
+    font-size: 28px;
+    font-weight: 700;
+    color: #c0392b; /* 红色 */
+}
+
+header h2 {
+    margin: 5px 0;
+    font-size: 18px;
+    font-weight: 400;
+    color: #666;
+}
+
+.main-content {
+    display: flex;
+    justify-content: space-between;
+    gap: 20px;
+}
+
+.form-container, .result-container {
+    flex: 1;
+    padding: 20px;
+    background: rgba(250, 250, 250, 0.7); /* 半透明极浅灰色背景 */
+    border-radius: 10px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* 微弱阴影 */
+}
+
+.form-container {
+    margin-right: 20px;
+}
+
+.result-container {
+    margin-left: 20px;
+}
+
+.form-group {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 20px;
+}
+
+.form-group div {
+    flex: 1;
+    margin-right: 20px;
+}
+
+.form-group div:last-child {
+    margin-right: 0;
+}
+
+.form-group label {
+    display: block;
+    font-weight: 600;
+    margin-bottom: 5px;
+    color: #c0392b; /* 红色 */
+}
+
+.form-group input,
+.form-group select {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid rgba(221, 221, 221, 0.7); /* 半透明浅灰色边框 */
+    border-radius: 5px;
+    background: rgba(255, 255, 255, 0.7); /* 半透明白色背景 */
+    color: #333;
+    box-sizing: border-box;
+}
+
+.button {
+    font-size: 16px;
+    padding: 10px 20px;
+    width: 100%;
+    max-width: 200px;
+    background-color: #c0392b; /* 红色 */
+    color: #fff; /* 白色文字 */
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+    margin: 20px 0;
+    display: block;
+    align-self: center;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* 微弱阴影 */
+}
+
+.button:hover {
+    background-color: #e74c3c; /* 更亮的红色 */
+    transform: scale(1.05);
+}
+
+.result-container h2 {
+    margin: 10px 0;
+    font-size: 16px;
+    color: #333;
+}

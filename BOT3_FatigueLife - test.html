@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Bearing Fatigue Life Calculator</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@400;700&display=swap">
+</head>
+
+<body>
+    <div class="container">
+<!--         <header>
+            <h1>Bearing Fatigue Life Calculator</h1>
+            <h2>本计算工具只适用于CRB和TRB</h2>
+        </header> -->
+
+        <div class="main-content">
+            <div class="form-container">
+                <h2>Calculate Bearing Life</h2>
+                <form>
+                    <div class="form-group">
+                        <label for="Cr">Cr(KN)</label>
+                        <input type="number" id="Cr" name="Cr" value="50">
+                    </div>
+                    <div class="form-group">
+                        <label for="C0r">C0r(KN)</label>
+                        <input type="number" id="C0r" name="C0r" value="100">
+                    </div>
+                    <div class="form-group">
+                        <label for="Dpw">Dpw(mm)</label>
+                        <input type="number" id="Dpw" name="Dpw" value="2000">
+                    </div>
+                    <div class="form-group">
+                        <label for="CA">Contact Angle(degree,CRB is zero.)</label>
+                        <input type="number" id="CA" name="CA" value="0">
+                    </div>
+                    <div class="form-group">
+                        <label for="Axia-Load">Axia-Load(KN)</label>
+                        <input type="number" id="Axia-Load" name="Axia-Load" value="0">
+                    </div>
+                    <div class="form-group">
+                        <label for="Radial-Load">Radial-Load(KN)</label>
+                        <input type="number" id="Radial-Load" name="Radial-Load" value="5">
+                    </div>
+                    <div class="form-group">
+                        <label for="RPM">RPM:</label>
+                        <input type="number" id="RPM" name="RPM" value="5">
+                    </div>
+                    <div class="form-group">
+                        <label for="KV40">Kinematic Viscosity@40℃(cst):</label>
+                        <input type="number" id="KV40" name="KV40" value="320">
+                    </div>
+                    <div class="form-group">
+                        <label for="KV100">Kinematic Viscosity@100℃(cst):</label>
+                        <input type="number" id="KV100" name="KV100" value="21.62">
+                    </div>
+                    <div class="form-group">
+                        <label for="LT">Lubricant Temperature(℃):</label>
+                        <input type="number" id="LT" name="LT" value="60">
+                    </div>
+                    <div class="form-group">
+                        <label for="AISOLimit">aiso Upper Limit:</label>
+                        <input type="number" id="AL" name="AL" value="50">
+                    </div>
+                    <div class="form-group">
+                        <label for="ISO4406">ISO4406 Code:</label>
+                        <select id="ISO4406" name="ISO4406">
+                            <option value="-/15/12">-/15/12</option>
+                            <option value="-/17/14">-/17/14</option>
+                            <option value="-/19/16">-/19/16</option>
+                        </select>
+                    </div>
+                    <button type="button" onclick="L10()">Calculate</button>
+                </form>
+            </div>
+            <div class="result-container">
+                <h2>P     : <span id="P">0</span> </h2>
+                <h2>e     : <span id="e">0</span> </h2>
+                <h2>L10   : <span id="L10">0</span> </h2>
+                <h2>Operating Kinematic Viscosity: <span id="OKV"></span> </h2>
+                <h2>Reference Kinematic Viscosity: <span id="RKV"></span> </h2>
+                <h2>Real_kappa  : <span id="Real_kappa">0</span> </h2>
+                <h2>Used_kappa  : <span id="Used_kappa">0</span> </h2>
+                <h2>ec  : <span id="ec">0</span> </h2>
+                <h2>Cu  : <span id="Cu">0</span> </h2>
+                <h2>aiso  : <span id="aiso">0</span> </h2>
+                <h2>L10m  : <span id="L10m">0</span> </h2>
+            </div>
+        </div>
+
+    </div>
+    <script src="degreesToRadians.js"></script>
+    <script src="L10.js"></script>
+</body>
+</html>

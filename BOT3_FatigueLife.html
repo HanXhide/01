@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Bearing Fatigue Life Calculator</title>
+    <link id="theme-stylesheet" rel="stylesheet" href="chinese.css"> <!-- 默认风格 -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@400;700&display=swap">
+    <style>
+        .theme-buttons {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        .theme-buttons button {
+            font-size: 16px;
+            padding: 10px 20px;
+            margin: 5px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease, transform 0.3s ease;
+        }
+        .theme-buttons .chinese {
+            background-color: #4caf50;
+            color: #fff;
+        }
+        .theme-buttons .cyberpunk {
+            background-color: #ff007f;
+            color: #fff;
+        }
+        .theme-buttons .japanese {
+            background-color: #4caf50;
+            color: #fff;
+        }
+        .theme-buttons button:hover {
+            transform: scale(1.05);
+        }
+    </style>
+</head>
+<body>
+    <div class="theme-buttons">
+        <button class="chinese" onclick="changeTheme('chinese.css')">Chinese Theme</button>
+        <button class="cyberpunk" onclick="changeTheme('cyberpunk.css')">Cyberpunk Theme</button>
+        <button class="japanese" onclick="changeTheme('japanese.css')">Japanese Theme</button>
+    </div>
+
+    <div class="container">
+<!--         <header>
+            <h1>Bearing Fatigue Life Calculator</h1>
+            <h2>本计算工具只适用于CRB和TRB</h2>
+        </header> -->
+
+        <div class="main-content">
+            <div class="form-container">
+                <h2>Calculate Bearing Life</h2>
+                <form>
+                    <div class="form-group">
+                        <div>
+                            <label for="Cr">Cr(KN)</label>
+                            <input type="number" id="Cr" name="Cr" value="50">
+                        </div>
+                        <div>
+                            <label for="C0r">C0r(KN)</label>
+                            <input type="number" id="C0r" name="C0r" value="100">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div>
+                            <label for="Dpw">Dpw(mm)</label>
+                            <input type="number" id="Dpw" name="Dpw" value="2000">
+                        </div>
+                        <div>
+                            <label for="CA">Contact Angle(degree, CRB is zero)</label>
+                            <input type="number" id="CA" name="CA" value="0">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div>
+                            <label for="Axia-Load">Axia-Load(KN)</label>
+                            <input type="number" id="Axia-Load" name="Axia-Load" value="0">
+                        </div>
+                        <div>
+                            <label for="Radial-Load">Radial-Load(KN)</label>
+                            <input type="number" id="Radial-Load" name="Radial-Load" value="5">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div>
+                            <label for="RPM">RPM:</label>
+                            <input type="number" id="RPM" name="RPM" value="5">
+                        </div>
+                        <div>
+                            <label for="KV40">Kinematic Vis.@40℃(cst):</label>
+                            <input type="number" id="KV40" name="KV40" value="320">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div>
+                            <label for="KV100">Kinematic Vis.@100℃(cst):</label>
+                            <input type="number" id="KV100" name="KV100" value="21.62">
+                        </div>
+                        <div>
+                            <label for="LT">Lubricant Temperature(℃):</label>
+                            <input type="number" id="LT" name="LT" value="60">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div>
+                            <label for="AISOLimit">aiso Upper Limit:</label>
+                            <input type="number" id="AL" name="AL" value="50">
+                        </div>
+                        <div>
+                            <label for="ISO4406">ISO4406 Code:</label>
+                            <select id="ISO4406" name="ISO4406">
+                                <option value="-/15/12">-/15/12</option>
+                                <option value="-/17/14">-/17/14</option>
+                                <option value="-/19/16">-/19/16</option>
+                            </select>
+                        </div>
+                    </div>
+                    <button type="button" class="button" onclick="L10()">Calculate</button>
+                </form>
+            </div>
+            <div class="result-container">
+                <h2>P     : <span id="P">0</span> </h2>
+                <h2>e     : <span id="e">0</span> </h2>
+                <h2>L10   : <span id="L10">0</span> </h2>
+                <h2>Operating Kinematic Viscosity: <span id="OKV"></span> </h2>
+                <h2>Reference Kinematic Viscosity: <span id="RKV"></span> </h2>
+                <h2>Real_kappa  : <span id="Real_kappa">0</span> </h2>
+                <h2>Used_kappa  : <span id="Used_kappa">0</span> </h2>
+                <h2>ec  : <span id="ec">0</span> </h2>
+                <h2>Cu  : <span id="Cu">0</span> </h2>
+                <h2>aiso  : <span id="aiso">0</span> </h2>
+                <h2>L10m  : <span id="L10m">0</span> </h2>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function changeTheme(theme) {
+            document.getElementById('theme-stylesheet').setAttribute('href', theme);
+        }
+    </script>
+     <script src="degreesToRadians.js"></script>
+    <script src="L10.js"></script>
+</body>
+</html>
