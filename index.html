@@ -154,8 +154,21 @@
             <!-- ページの主要内容をここに追加 -->
 <img id="QRCode" src="img/QRcode.jpg" alt="QRCode" >
 <img id="Bird" src="img/Bird.gif" alt="Bird" >
+<audio id="bgm" src="sound/bgm1.mp3" autoplay loop>
+        您的浏览器不支持 audio 标签。
+    </audio>
 
+<!-- <audio id="click-sound">
+    <source src="click.mp3" type="audio/mpeg">
+    Your browser does not support the audio element.
+</audio> -->
+
+    <script>
+        // 你可以用JavaScript来控制音乐的播放
+        document.getElementById('bgm').volume = 0.5;  // 设置音量大小
+    </script>
         </div>
+        
         <footer>
 
             <p>&copy; 2024 HanS All rights reserved.</p>
@@ -163,5 +176,7 @@
     </div>
                 <!-- 在右下角加个人二维码*/ -->
 
+
 </body>
+
 </html>
