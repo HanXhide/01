@@ -5,19 +5,24 @@
     <title>背景音乐示例</title>
 </head>
 <body>
+
     <h1>欢迎来到我的网站</h1>
     <!-- 插入背景音乐 -->
-    <audio id="bgm" autoplay loop>
-        <source src="bgm1.mp3" type="audio/mpeg">
-        您的浏览器不支持audio元素，需要更新浏览器才能播放背景音乐。
+    <audio id="bgm" loop controls>
+        <source src="sound/bgm2.mp3" type="audio/mpeg">
+        您的浏览器不支持 audio 标签。
     </audio>
 
+<!--    点击页面播放音乐js -->
     <script>
-        // 使用JavaScript来控制音乐的播放
-        var audioElement = document.getElementById('bgm');
-        if (audioElement) {
-            audioElement.volume = 0.5;  // 设置音量大小
-        }
+        document.addEventListener('click', function() {
+            var audioElement = document.getElementById('bgm');
+            if (audioElement.paused) {  // 检查音频是否已播放
+                audioElement.volume = 0.5;  // 设置音量
+                audioElement.play();  // 播放音频
+            }
+        }, { once: true });  // 确保事件处理器只执行一次
     </script>
+
 </body>
 </html>

@@ -17,11 +17,19 @@
         }
 #Bird {
             position: fixed;
-            top: 10px; /* 距离底部的距离 */
+            top: 10px; /* 距离top部的距离 */
             right: 10px; /* 距离右侧的距离 */
             z-index: 9999; /* 可选，设置图像的层级 */
             width: 330px; /* 设置图片宽度 */
             height: 200px; /* 根据宽度自动调整高度 */
+        }
+#BGM {
+            position: fixed;
+            top: 30px; /* 距离top部的距离 */
+            left: 10px; /* 距离右侧的距离 */
+            z-index: 9999; /* 可选，设置图像的层级 */
+            width: 150px; /* 设置图片宽度 */
+            height: 40px; /* 根据宽度自动调整高度 */
         }
 
 
@@ -154,21 +162,22 @@
             <!-- ページの主要内容をここに追加 -->
 <img id="QRCode" src="img/QRcode.jpg" alt="QRCode" >
 <img id="Bird" src="img/Bird.gif" alt="Bird" >
-<audio id="bgm" src="sound/bgm1.mp3" autoplay loop>
+<audio id="BGM" src="sound/bgm2.mp3" controls autoplay loop>
         您的浏览器不支持 audio 标签。
     </audio>
 
-<!-- <audio id="click-sound">
-    <source src="click.mp3" type="audio/mpeg">
-    Your browser does not support the audio element.
-</audio> -->
+<script>
+        document.addEventListener('click', function() {
+            var audioElement = document.getElementById('BGM');
+            if (audioElement.paused) {  // 检查音频是否已播放
+                audioElement.volume = 0.5;  // 设置音量
+                audioElement.play();  // 播放音频
+            }
+        }, { once: true });  // 确保事件处理器只执行一次
+</script>
 
-    <script>
-        // 你可以用JavaScript来控制音乐的播放
-        document.getElementById('bgm').volume = 0.5;  // 设置音量大小
-    </script>
         </div>
-        
+
         <footer>
 
             <p>&copy; 2024 HanS All rights reserved.</p>
