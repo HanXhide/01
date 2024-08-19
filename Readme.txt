@@ -4,3 +4,5 @@
 2024/7/17 添加Von-Mises stress和MaxShearStress到BOT1
 2024/7/31 添加巴黎奥运会Gif动图
 2024/7/31 添加大奥~华之乱BGM音乐
+2024/7/31 优化大奥~华之乱BGM音乐播放模式，并添加control bar
+2024/8/19 添加BOT4质量计算
