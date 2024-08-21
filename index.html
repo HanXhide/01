@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="ja"> <!-- 假设网站是面向日本受众的 -->
+<html lang="en"> <!-- 假设网站是面向日本受众的 -->
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -7,6 +7,12 @@
     <base target="_blank" />
     <style>
         /* CSS 样式 */
+
+#language-switcher {
+            margin-bottom: 20px;
+            text-align: left; /* 使按钮居left */
+        }
+
  #QRCode {
             position: fixed;
             bottom: 50px; /* 距离底部的距离 */
@@ -81,6 +87,11 @@
 </head>
 <body>
 
+    <!-- #添加中英文切换器 2024/8/21-->
+<div id="language-switcher">
+    <button onclick="switchLanguage('en')">English</button>
+    <button onclick="switchLanguage('cn')">中文</button>
+</div>
 
     <div class="container">
         <header>
@@ -115,60 +126,60 @@
 
         <div class="content">
             <h2>
-                <a href="ReadMe.txt">ReadMe</a>
+                <a href="Readme.txt">ReadMe</a>
                 <a href="https://bearing.fun">Test</a>
             </h2>
+
             <h2>
-                <a href="BOT1_HertzLineV1.html">BOT1ーHertz Line Contact Pressure</a>
+            <a href="BOT1_HertzLineV1.html" class="lang-switch" data-en="BOT1ーHeinrich Hertz Line Contact Pressure" data-cn="BOT1-海因里希·赫兹线接触压力">BOT1ーHeinrich Hertz Line Contact Pressure</a>
+            </h2>
+            <h2>
+                <a href="BOT2_Capacity of Roller Bearing.html" class="lang-switch" data-en="BOT2ーBearing Dynamic&Static Load Ratings" data-cn="BOT2-轴承额定动载荷Cr，静载荷Cor">BOT2ーBearing Dynamic&Static Load Ratings</a>
             </h2>
 
             <h2>
-                <a href="BOT2_Capacity of Roller Bearing.html">BOT2ーベアリングのCrとC0r</a>
+                <a href="BOT3_FatigueLife.html" class="lang-switch" data-en="BOT3ーBearing Fatigue Life(L10 & L10m)" data-cn="BOT3-轴承疲劳寿命（L10&L10m）">BOT3ーBearing Fatigue Life(L10 & L10m)</a>
             </h2>
 
             <h2>
-                <a href="BOT3_FatigueLife.html">BOT3ーベアリングfatigue LifeのL10 & L10m</a>
+                <a href="BOT4_mass.html" class="lang-switch" data-en="BOT4ーBearing Mass Prediction" data-cn="BOT4-轴承质量估算">BOT4ーBearing Mass Prediction</a>
             </h2>
 
             <h2>
-                <a href="BOT4_mass.html">BOT4ー轴承质量概算</a>
-            </h2>
-
-            <h2>
-                <a href="fatigueLife.html">BOT4ーベアリングの隙間（作業中）</a>
-            </h2> 
-
-           <h2>
-                <a href="fatigueLife.html">BOT4ー潤滑油の粘度とκと油膜厚さHmin（作業中）</a>
-        　　</h2> 
-
-           <h2>
-                <a href="kiretsu.html">BOT5ー軸受に亀裂あれば、対する許容疲労応力</a>
-        　　</h2> 
-
-           <h2>
-                <a href="NecessaryInterference.html">BOT6ー軸受の必要なしめしろ</a>
-        　　</h2> 
-
-           <h2>
-                <a href="ContactPointHeight.html">BOT7ー円筒ころ軸受の端面の接点位置高さ</a>
-        　　</h2>
-
-            <h2>
-                <a href="fatigueLife.html">BOT8ー嵌め合いと円周応力計算(3sigema-Method)（作業中）</a>
+                <a href="fatigueLife.html"class="lang-switch" data-en="BOT5ーResidual and effective Clearance of Bearing" data-cn="BOT5-轴承残留游隙，有效游隙计算">BOT5ーResidual and effective Clearance of Bearing(Undone)</a>
             </h2> 
 
             <h2>
-                <a href="fatigueLife.html">BOT9ー組み合わせTRBの内部力計算（作業中）</a>
-        　　</h2> 
+           <a href="fatigueLife.html" class="lang-switch" data-en="BOT6ーKinematic Viscosity of Lubricant and Film Thickness Hmin" data-cn="BOT6-润滑油的运动粘度与最小油膜厚度Hmin">BOT6ーKinematic Viscosity of Lubricant and Film Thickness Hmin(Undone)</a>
+            </h2>
+
+            <h2>
+            <a href="kiretsu.html" class="lang-switch" data-en="BOT7ーAllowable Fatigue Stress For small crack in Bearing" data-cn="BOT7-轴承小裂纹允许的疲劳应力">BOT7ーAllowable Fatigue Stress For small crack in Bearing</a>
+            </h2>
+
+            <h2>
+            <a href="NecessaryInterference.html" class="lang-switch" data-en="BOT8ーNecessary Interference of Bearing mounted on hollow shaft" data-cn="BOT8-空心轴上轴承的必要过盈量">BOT8ーNecessary Interference of Bearing mounted on hollow shaft</a>
+            </h2>
+
+            <h2>
+            <a href="ContactPointHeight.html" class="lang-switch" data-en="BOT9ーThe height of CRB roller's end face contacted with Rib" data-cn="BOT9-CRB滚子端面与肋骨接触的高度">BOT9ーThe height of CRB roller's end face contacted with Rib</a>
+            </h2>
+
+            <h2>
+            <a href="fatigueLife.html" class="lang-switch" data-en="BOT10ーHoop stress by Interference(3sigma-Method)（Working）" data-cn="BOT10-过盈导致的环向应力(3sigma方法)（进行中）">BOT10ーHoop stress by Interference(3sigma-Method)（Working）</a>
+            </h2>
+
+            <h2>
+            <a href="fatigueLife.html" class="lang-switch" data-en="BOT11ーInner force calculation of TRBs(Undone)" data-cn="BOT11-TRBs内部力的计算(未完成)">BOT11ーInner force calculation of TRBs(Undone)</a>
+            </h2>
 
             <p>ここにベアリングに関する詳細情報を記述します。</p>
             <!-- ページの主要内容をここに追加 -->
-<img id="QRCode" src="img/QRcode.jpg" alt="QRCode" >
-<img id="Bird" src="img/Bird.gif" alt="Bird" >
-<audio id="BGM" src="sound/bgm2.mp3" controls  loop>
-        您的浏览器不支持 audio 标签。
-    </audio>
+            <img id="QRCode" src="img/QRcode.jpg" alt="QRCode" >
+            <img id="Bird" src="img/Bird.gif" alt="Bird" >
+            <audio id="BGM" src="sound/bgm2.mp3" controls  loop>
+                    您的浏览器不支持 audio 标签。
+             </audio>
 
 <script>
         document.addEventListener('click', function() {
@@ -179,6 +190,24 @@
             }
         }, { once: true });  // 确保事件处理器只执行一次
 </script>
+           <!-- 添加语言切换JS*/ -->                   
+<script>
+    var currentLanguage = 'en'; // 默认语言
+
+    function switchLanguage(lang) {
+        currentLanguage = lang;
+        var links = document.querySelectorAll('.lang-switch');
+
+        links.forEach(function(link) {
+            var text = lang === 'en' ? link.getAttribute('data-en') : link.getAttribute('data-cn');
+            link.textContent = text;
+        });
+    }
+
+    // 页面加载时根据当前语言设置文本,这里没用，直接用的英文
+    /*window.onload = switchLanguage;*/
+</script>
+
 
         </div>
 
@@ -188,7 +217,7 @@
         </footer>
     </div>
                 <!-- 在右下角加个人二维码*/ -->
-
+                   
 
 </body>
 

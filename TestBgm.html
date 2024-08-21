@@ -1,28 +1,32 @@
 <!DOCTYPE html>
-<html lang="zh-CN">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>背景音乐示例</title>
+    <title>语言切换示例</title>
 </head>
 <body>
 
-    <h1>欢迎来到我的网站</h1>
-    <!-- 插入背景音乐 -->
-    <audio id="bgm" loop controls>
-        <source src="sound/bgm2.mp3" type="audio/mpeg">
-        您的浏览器不支持 audio 标签。
-    </audio>
+<div id="text">
+    <p data-en="Hello World" data-cn="你好世界">你好世界</p>
+    <button onclick="switchLanguage('en')">English</button>
+    <button onclick="switchLanguage('cn')">中文</button>
+</div>
 
-<!--    点击页面播放音乐js -->
-    <script>
-        document.addEventListener('click', function() {
-            var audioElement = document.getElementById('bgm');
-            if (audioElement.paused) {  // 检查音频是否已播放
-                audioElement.volume = 0.5;  // 设置音量
-                audioElement.play();  // 播放音频
+<script>
+    var currentLanguage = 'cn'; // 默认语言
+
+    function switchLanguage(lang) {
+        currentLanguage = lang;
+        var elements = document.querySelectorAll('[data-en], [data-cn]');
+        elements.forEach(function(element) {
+            if (lang === 'en') {
+                element.textContent = element.getAttribute('data-en');
+            } else {
+                element.textContent = element.getAttribute('data-cn');
             }
-        }, { once: true });  // 确保事件处理器只执行一次
-    </script>
+        });
+    }
+</script>
 
 </body>
 </html>
